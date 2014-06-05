@@ -21,21 +21,22 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   nodelet
   dynamic_reconfigure
-  pcl
   pcl_ros
   cv_bridge
   cob_image_flip
   cob_vision_utils
   cob_people_detection_msgs
   kdl_parser
-  orocos_kdl
+#  orocos_kdl
 )
+
+find_package(orocos_kdl REQUIRED)
 
 find_package(Boost REQUIRED COMPONENTS signals system filesystem)
 
 find_package(OpenCV REQUIRED)
 
-#find_package(PCL REQUIRED)
+find_package(PCL REQUIRED)
 #message(STATUS "PCL Include dirs: ${PCL_INCLUDE_DIRS}")
 
 
@@ -133,11 +134,12 @@ catkin_package(
     cob_vision_utils
     cob_people_detection_msgs
     kdl_parser
-    orocos_kdl
+#    orocos_kdl
   DEPENDS
-    #PCL
+    PCL
     OpenCV
     Boost
+    orocos_kdl
 )
 
 ###########
@@ -167,7 +169,7 @@ target_link_libraries(subspace_analysis
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
   ${OpenCV_LIBS}
-#  ${PCL_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
 
 add_library(face_normalizer
@@ -177,7 +179,7 @@ target_link_libraries(face_normalizer
   ${catkin_LIBRARIES}
 #  ${Boost_LIBRARIES}
   ${OpenCV_LIBS}
-#  ${PCL_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
 
 add_library(face_recognizer_algorithms
@@ -252,7 +254,7 @@ target_link_libraries(face_detector_node
   ${catkin_LIBRARIES}
 #  ${Boost_LIBRARIES}
   ${OpenCV_LIBS}
-#  ${PCL_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
 
 add_executable(face_recognizer_node
